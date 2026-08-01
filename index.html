@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Zoob.in — a small portfolio of private, offline-first Android apps by Syed Zubeen: Flirtle, PixLite, Chipper and PDF Tools.">
+  <meta name="description" content="Zoob.in: a small portfolio of offline-first Android apps by Zubeen. Flirtle, PixLite, Chipper and PDF Tools.">
   <meta name="color-scheme" content="light dark">
-  <meta property="og:title" content="Zoob.in — small, private, offline-first apps">
-  <meta property="og:description" content="A short showcase of the apps in my portfolio. Private by default, built to work offline.">
+  <meta property="og:title" content="Zoob.in: small, offline-first apps">
+  <meta property="og:description" content="A short showcase of the apps in my portfolio. Built to work offline, no account required.">
   <meta property="og:type" content="website">
   <!-- App-grid mark, inline so it needs no route and no static mount. Four lamps
        in a 2x2 grid: the portfolio is a grid of apps. Inverts on dark chrome. -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3Erect{fill:%230a0a0a}@media(prefers-color-scheme:dark){rect{fill:%23f5f5f5}}%3C/style%3E%3Crect x='4' y='4' width='11' height='11' rx='3'/%3E%3Crect x='17' y='4' width='11' height='11' rx='3'/%3E%3Crect x='4' y='17' width='11' height='11' rx='3'/%3E%3Crect x='17' y='17' width='11' height='11' rx='3'/%3E%3C/svg%3E">
-  <title>Zoob.in — small, private, offline-first apps</title>
+  <title>Zoob.in: small, offline-first apps</title>
   <style>
     /* Blueprint tokens, carried over from the Signal build: white canvas, black
        ink, hairlines. Colour is reserved for meaning; this page needs almost
@@ -75,8 +75,8 @@
     .sub { color:var(--muted); margin:0 0 2.75rem; max-width:44rem; font-size:1rem; }
     a { color:var(--ink); }
 
-    /* The apps grid: each app is a wireframe card — 1px ink border, an uppercase
-       title bar, no shadow at rest — echoing Signal's form sheet. auto-fill lets
+    /* The apps grid: each app is a wireframe card, 1px ink border, an uppercase
+       title bar, no shadow at rest, echoing Signal's form sheet. auto-fill lets
        the grid flow from 1 to 3 columns as the portfolio grows, no media query. */
     .apps { display:grid; grid-template-columns:repeat(auto-fill, minmax(16rem,1fr));
             gap:1.1rem; }
@@ -114,7 +114,7 @@
                  letter-spacing:.06em; margin:.15rem 0 0; }
     .actions { display:flex; flex-wrap:wrap; align-items:center; gap:.9rem 1.1rem;
                margin-top:auto; padding-top:1rem; }
-    /* Play pill: outlined, monochrome. Dead link for now — swap the href when
+    /* Play pill: outlined, monochrome. Dead link for now, swap the href when
        the listing goes live. The "soon" tick keeps it honest until then. */
     .play { display:inline-flex; align-items:center; gap:.5rem; text-decoration:none;
             font-size:.82rem; font-weight:600; line-height:1;
@@ -129,7 +129,7 @@
                 border-bottom:1px solid transparent; }
     .privlink:hover { color:var(--ink); border-bottom-color:var(--muted); }
 
-    /* Principles band: a dashed rail with badges that light one at a time — the
+    /* Principles band: a dashed rail with badges that light one at a time, the
        same motion idea as the mark, so the page has one grammar, not three. */
     .principles { margin:3.25rem 0 0; }
     .principles h2 { font-size:1.15rem; font-weight:700; margin:0; letter-spacing:-.01em; }
@@ -206,25 +206,25 @@
         <rect x="1" y="9" width="6" height="6" rx="1.6"/>
         <rect x="9" y="9" width="6" height="6" rx="1.6"/>
       </svg><span class="type">Zoob.in</span></h1>
-    <p class="essence">Small, private, offline-first apps.</p>
+    <p class="essence">Small, offline-first apps.</p>
     <nav aria-label="Apps" id="nav"></nav>
   </aside>
 
 <main>
   <p class="sub">A short showcase of the apps I build. Each one is a small, focused
-     Android tool designed to do a single job well — private by default, working
-     offline, without accounts, ads, or anything that leaves your phone unless you
-     ask it to.</p>
+     Android tool designed to do a single job well: offline-first, with no
+     account required and no subscription. Some are free to use and supported
+     by ads; each app's privacy policy states exactly what that means for it.</p>
 
   <!-- Cards are rendered from the APPS array at the bottom of this file. To add
-       an app, add ONE object there — the grid, sidebar nav and footer all update
+       an app, add ONE object there: the grid, sidebar nav and footer all update
        from it. This container is populated on load; the <noscript> below is the
        real, crawlable fallback for no-JS clients. -->
   <section class="apps" id="apps" aria-label="Apps"></section>
   <noscript>
     <section class="apps" aria-label="Apps">
       <article class="app"><div class="titlebar"><span>Flirtle</span><span class="plat">Android</span></div><div class="body"><h3>Flirtle</h3><p class="tag">Better dating-app prompts, drafted for you.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/flirtle-privacy/">Privacy policy</a></div></div></article>
-      <article class="app"><div class="titlebar"><span>PixLite</span><span class="plat">Android</span></div><div class="body"><h3>PixLite</h3><p class="tag">Compress, resize and convert photos — fully offline.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/pixlite-privacy/">Privacy policy</a></div></div></article>
+      <article class="app"><div class="titlebar"><span>PixLite</span><span class="plat">Android</span></div><div class="body"><h3>PixLite</h3><p class="tag">Compress, resize and convert photos, fully offline.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/pixlite-privacy/">Privacy policy</a></div></div></article>
       <article class="app"><div class="titlebar"><span>Chipper</span><span class="plat">Android</span></div><div class="body"><h3>Chipper</h3><p class="tag">A calm, private weight tracker.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/chipper-privacy/">Privacy policy</a></div></div></article>
       <article class="app"><div class="titlebar"><span>PDF Tools</span><span class="plat">Android</span></div><div class="body"><h3>PDF Tools</h3><p class="tag">A pocket PDF workshop.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/pdftools-privacy/">Privacy policy</a></div></div></article>
     </section>
@@ -237,25 +237,25 @@
       <li>
         <span class="dot" aria-hidden="true">01</span>
         <div>
-          <h3>Private by default</h3>
-          <p>Your data stays on your device. Nothing is collected, and nothing is
-             sold — the apps have no reason to phone home.</p>
-        </div>
-      </li>
-      <li>
-        <span class="dot" aria-hidden="true">02</span>
-        <div>
           <h3>Works offline</h3>
           <p>The core of each app runs without a connection. Cloud is opt-in,
              never a requirement to get the job done.</p>
         </div>
       </li>
       <li>
+        <span class="dot" aria-hidden="true">02</span>
+        <div>
+          <h3>No accounts, no subscriptions</h3>
+          <p>Open the app and use it. No sign-up walls and no recurring
+             charges, just a single tool that does one job cleanly.</p>
+        </div>
+      </li>
+      <li>
         <span class="dot" aria-hidden="true">03</span>
         <div>
-          <h3>No accounts, no clutter</h3>
-          <p>Open the app and use it. No sign-up walls, no ads, no upsells — a
-             single tool that does one job cleanly.</p>
+          <h3>Honest about ads</h3>
+          <p>Some apps are free and ad-supported. Each app's privacy policy
+             says plainly what that means and what it shares.</p>
         </div>
       </li>
     </ol>
@@ -265,7 +265,7 @@
     <div class="foot-cols">
       <div>
         <span class="foot-brand">Zoob.in</span>
-        <p>Small, private, offline-first apps by Syed Zubeen.</p>
+        <p>Small, offline-first apps by Zubeen.</p>
       </div>
       <div>
         <h4>Apps</h4>
@@ -283,8 +283,8 @@
       </div>
     </div>
     <div class="foot-fine">
-      <p>All apps are Android, offline-first, and store your data on your own device.</p>
-      <p>© 2026 Zoob.in · Syed Zubeen. All rights reserved.</p>
+      <p>All apps are Android and offline-first. See each app's privacy policy for what it collects.</p>
+      <p>© 2026 Zoob.in · Zubeen. All rights reserved.</p>
     </div>
   </footer>
 </main>
@@ -294,7 +294,7 @@
 /* ─────────────────────────────────────────────────────────────────────────
    THE ONLY PLACE YOU EDIT TO ADD AN APP.
 
-   Copy one block, fill it in, done — the grid, the sidebar nav, and both
+   Copy one block, fill it in, done: the grid, the sidebar nav, and both
    footer columns all rebuild from this array. Order here is the order shown.
 
    Fields:
@@ -316,32 +316,32 @@ const APPS = [
   {
     id: 'flirtle', name: 'Flirtle', category: 'Dating',
     tagline: 'Better dating-app prompts, drafted for you.',
-    desc: "Paste a match's profile or pick a prompt and Flirtle drafts openers and answers in your own voice — on-device AI first, cloud only when you ask.",
+    desc: "Paste a match's profile or pick a prompt and Flirtle drafts openers and answers in your own voice, on-device AI first, cloud only when you ask.",
     meta: 'Dating helper · On-device + cloud AI', platform: 'Android',
     play: '', privacy: 'https://syedzubeen.github.io/flirtle-privacy/',
     glyph: '<path d="M6 9h28a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H17l-8 6v-6H6a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3Z"/><path d="M28 15l1.6 3.4L33 20l-3.4 1.6L28 25l-1.6-3.4L23 20l3.4-1.6Z"/>'
   },
   {
     id: 'pixlite', name: 'PixLite', category: 'Photos',
-    tagline: 'Compress, resize and convert photos — fully offline.',
-    desc: 'Shrink images for sharing, batch-resize to platform presets, and convert between formats. Nothing ever leaves your phone.',
-    meta: 'Photos · 100% on-device', platform: 'Android',
+    tagline: 'Compress, resize and convert photos, fully offline.',
+    desc: 'Shrink images for sharing, batch-resize to platform presets, and convert between formats. The processing itself runs on your device.',
+    meta: 'Photos · Offline-first', platform: 'Android',
     play: '', privacy: 'https://syedzubeen.github.io/pixlite-privacy/',
     glyph: '<rect x="4" y="7" width="32" height="26" rx="3"/><path d="M4 27l9-9 6 6 7-8 10 10"/><circle cx="14" cy="15" r="2.5"/>'
   },
   {
     id: 'chipper', name: 'Chipper', category: 'Health',
     tagline: 'A calm, private weight tracker.',
-    desc: 'Log your weight, watch the trend, and keep every reading local to your device. No accounts, no cloud, no noise — just the line going where you want.',
-    meta: 'Health · Local-only', platform: 'Android',
+    desc: 'Log your weight, watch the trend, and keep your reading history on your device. No accounts, no subscriptions, no noise, just the line going where you want.',
+    meta: 'Health · Offline-first', platform: 'Android',
     play: '', privacy: 'https://syedzubeen.github.io/chipper-privacy/',
     glyph: '<path d="M5 33V7M5 33h30"/><path d="M9 24l7-6 6 4 11-11"/><circle cx="33" cy="11" r="2.4"/>'
   },
   {
     id: 'pdftools', name: 'PDF Tools', category: 'Productivity',
     tagline: 'A pocket PDF workshop.',
-    desc: 'Merge, split, compress, convert and reorder PDFs right on your phone — a dozen tools that run entirely on-device, no upload required.',
-    meta: 'Productivity · 100% on-device', platform: 'Android',
+    desc: 'Merge, split, compress, convert and reorder PDFs right on your phone: a dozen tools that run on-device, with no upload required to process a file.',
+    meta: 'Productivity · Offline-first', platform: 'Android',
     play: '', privacy: 'https://syedzubeen.github.io/pdftools-privacy/',
     glyph: '<path d="M12 4h11l7 7v22a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M23 4v7h7"/><path d="M15 20h10M15 25h10M15 30h6"/>'
   }
@@ -381,7 +381,7 @@ function card(a, i) {
 }
 
 function render() {
-  // Grid — flat, or grouped under category labels when the flag is on.
+  // Grid: flat, or grouped under category labels when the flag is on.
   const grid = document.getElementById('apps');
   if (GROUP_BY_CATEGORY) {
     const cats = [...new Set(APPS.map(a => a.category).filter(Boolean))];
@@ -395,7 +395,7 @@ function render() {
     grid.innerHTML = APPS.map((a, i) => card(a, i)).join('');
   }
 
-  // Sidebar nav — apps when flat, categories when grouped (stays short at 16).
+  // Sidebar nav: apps when flat, categories when grouped (stays short at 16).
   const nav = document.getElementById('nav');
   if (GROUP_BY_CATEGORY) {
     const cats = [...new Set(APPS.map(a => a.category).filter(Boolean))];
