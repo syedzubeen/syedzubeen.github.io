@@ -76,9 +76,16 @@
     a { color:var(--ink); }
 
     /* The apps grid: each app is a wireframe card — 1px ink border, an uppercase
-       title bar, no shadow at rest — echoing Signal's form sheet. */
-    .apps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.1rem; }
-    @media (max-width:46rem) { .apps { grid-template-columns:1fr; } }
+       title bar, no shadow at rest — echoing Signal's form sheet. auto-fill lets
+       the grid flow from 1 to 3 columns as the portfolio grows, no media query. */
+    .apps { display:grid; grid-template-columns:repeat(auto-fill, minmax(16rem,1fr));
+            gap:1.1rem; }
+    /* Category grouping: a section label per category, shown only when
+       GROUP_BY_CATEGORY is on. Kept minimal so it scales to a directory. */
+    .cat-label { grid-column:1/-1; font-size:.7rem; font-weight:700;
+                 text-transform:uppercase; letter-spacing:.1em; color:var(--muted);
+                 margin:.75rem 0 -.2rem; scroll-margin-top:1.5rem; }
+    .cat-label:first-child { margin-top:0; }
     .app { border:1px solid var(--line-strong); border-radius:3px; background:var(--bg);
            display:flex; flex-direction:column; scroll-margin-top:1.5rem;
            transition:transform .18s ease, box-shadow .18s ease; }
@@ -182,10 +189,10 @@
       main > *:nth-child(2) { animation-delay:.06s; }
       main > *:nth-child(3) { animation-delay:.12s; }
       main > *:nth-child(4) { animation-delay:.18s; }
-      .apps .app { animation:rise .5s ease-out both; }
-      .apps .app:nth-child(2) { animation-delay:.08s; }
-      .apps .app:nth-child(3) { animation-delay:.16s; }
-      .apps .app:nth-child(4) { animation-delay:.24s; }
+      /* Cards stagger by their render index (--i, capped so a big grid never
+         waits too long), so the effect holds at 4 apps or 16. */
+      .apps .app { animation:rise .5s ease-out both;
+                   animation-delay:calc(min(var(--i,0), 8) * .07s); }
       @keyframes rise { from { opacity:0; transform:translateY(10px); } }
     }
   </style>
@@ -200,12 +207,7 @@
         <rect x="9" y="9" width="6" height="6" rx="1.6"/>
       </svg><span class="type">Zoob.in</span></h1>
     <p class="essence">Small, private, offline-first apps.</p>
-    <nav aria-label="Apps">
-      <a href="#flirtle">Flirtle</a>
-      <a href="#pixlite">PixLite</a>
-      <a href="#chipper">Chipper</a>
-      <a href="#pdftools">PDF Tools</a>
-    </nav>
+    <nav aria-label="Apps" id="nav"></nav>
   </aside>
 
 <main>
@@ -214,104 +216,19 @@
      offline, without accounts, ads, or anything that leaves your phone unless you
      ask it to.</p>
 
-  <section class="apps" aria-label="Apps">
-
-    <article class="app" id="flirtle">
-      <div class="titlebar"><span>Flirtle</span><span class="plat">Android</span></div>
-      <div class="body">
-        <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true">
-          <path d="M6 9h28a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H17l-8 6v-6H6a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3Z"/>
-          <path d="M28 15l1.6 3.4L33 20l-3.4 1.6L28 25l-1.6-3.4L23 20l3.4-1.6Z"/>
-        </svg>
-        <h3>Flirtle</h3>
-        <p class="tag">Better dating-app prompts, drafted for you.</p>
-        <p>Paste a match's profile or pick a prompt and Flirtle drafts openers and
-           answers in your own voice — on-device AI first, cloud only when you ask.</p>
-        <p class="meta">Dating helper · On-device + cloud AI</p>
-        <div class="actions">
-          <!-- Play Store listing not live yet — replace "#" with the URL on launch. -->
-          <a class="play" href="#" aria-label="Flirtle on Google Play (coming soon)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l16 10L3 22z"/></svg>
-            Google Play <span class="soon">Soon</span>
-          </a>
-          <a class="privlink" href="https://syedzubeen.github.io/flirtle-privacy/">Privacy policy</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="app" id="pixlite">
-      <div class="titlebar"><span>PixLite</span><span class="plat">Android</span></div>
-      <div class="body">
-        <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true">
-          <rect x="4" y="7" width="32" height="26" rx="3"/>
-          <path d="M4 27l9-9 6 6 7-8 10 10"/>
-          <circle cx="14" cy="15" r="2.5"/>
-        </svg>
-        <h3>PixLite</h3>
-        <p class="tag">Compress, resize and convert photos — fully offline.</p>
-        <p>Shrink images for sharing, batch-resize to platform presets, and convert
-           between formats. Nothing ever leaves your phone.</p>
-        <p class="meta">Photos · 100% on-device</p>
-        <div class="actions">
-          <!-- Play Store listing not live yet — replace "#" with the URL on launch. -->
-          <a class="play" href="#" aria-label="PixLite on Google Play (coming soon)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l16 10L3 22z"/></svg>
-            Google Play <span class="soon">Soon</span>
-          </a>
-          <a class="privlink" href="https://syedzubeen.github.io/pixlite-privacy/">Privacy policy</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="app" id="chipper">
-      <div class="titlebar"><span>Chipper</span><span class="plat">Android</span></div>
-      <div class="body">
-        <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true">
-          <path d="M5 33V7M5 33h30"/>
-          <path d="M9 24l7-6 6 4 11-11"/>
-          <circle cx="33" cy="11" r="2.4"/>
-        </svg>
-        <h3>Chipper</h3>
-        <p class="tag">A calm, private weight tracker.</p>
-        <p>Log your weight, watch the trend, and keep every reading local to your
-           device. No accounts, no cloud, no noise — just the line going where you want.</p>
-        <p class="meta">Health · Local-only</p>
-        <div class="actions">
-          <!-- Play Store listing not live yet — replace "#" with the URL on launch. -->
-          <a class="play" href="#" aria-label="Chipper on Google Play (coming soon)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l16 10L3 22z"/></svg>
-            Google Play <span class="soon">Soon</span>
-          </a>
-          <a class="privlink" href="https://syedzubeen.github.io/chipper-privacy/">Privacy policy</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="app" id="pdftools">
-      <div class="titlebar"><span>PDF Tools</span><span class="plat">Android</span></div>
-      <div class="body">
-        <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true">
-          <path d="M12 4h11l7 7v22a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
-          <path d="M23 4v7h7"/>
-          <path d="M15 20h10M15 25h10M15 30h6"/>
-        </svg>
-        <h3>PDF Tools</h3>
-        <p class="tag">A pocket PDF workshop.</p>
-        <p>Merge, split, compress, convert and reorder PDFs right on your phone — a
-           dozen tools that run entirely on-device, no upload required.</p>
-        <p class="meta">Productivity · 100% on-device</p>
-        <div class="actions">
-          <!-- Play Store listing not live yet — replace "#" with the URL on launch. -->
-          <a class="play" href="#" aria-label="PDF Tools on Google Play (coming soon)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l16 10L3 22z"/></svg>
-            Google Play <span class="soon">Soon</span>
-          </a>
-          <a class="privlink" href="https://syedzubeen.github.io/pdftools-privacy/">Privacy policy</a>
-        </div>
-      </div>
-    </article>
-
-  </section>
+  <!-- Cards are rendered from the APPS array at the bottom of this file. To add
+       an app, add ONE object there — the grid, sidebar nav and footer all update
+       from it. This container is populated on load; the <noscript> below is the
+       real, crawlable fallback for no-JS clients. -->
+  <section class="apps" id="apps" aria-label="Apps"></section>
+  <noscript>
+    <section class="apps" aria-label="Apps">
+      <article class="app"><div class="titlebar"><span>Flirtle</span><span class="plat">Android</span></div><div class="body"><h3>Flirtle</h3><p class="tag">Better dating-app prompts, drafted for you.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/flirtle-privacy/">Privacy policy</a></div></div></article>
+      <article class="app"><div class="titlebar"><span>PixLite</span><span class="plat">Android</span></div><div class="body"><h3>PixLite</h3><p class="tag">Compress, resize and convert photos — fully offline.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/pixlite-privacy/">Privacy policy</a></div></div></article>
+      <article class="app"><div class="titlebar"><span>Chipper</span><span class="plat">Android</span></div><div class="body"><h3>Chipper</h3><p class="tag">A calm, private weight tracker.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/chipper-privacy/">Privacy policy</a></div></div></article>
+      <article class="app"><div class="titlebar"><span>PDF Tools</span><span class="plat">Android</span></div><div class="body"><h3>PDF Tools</h3><p class="tag">A pocket PDF workshop.</p><div class="actions"><a class="privlink" href="https://syedzubeen.github.io/pdftools-privacy/">Privacy policy</a></div></div></article>
+    </section>
+  </noscript>
 
   <section class="principles" aria-labelledby="principles-title">
     <h2 id="principles-title">How these are built</h2>
@@ -352,21 +269,11 @@
       </div>
       <div>
         <h4>Apps</h4>
-        <ul>
-          <li><a href="#flirtle">Flirtle</a></li>
-          <li><a href="#pixlite">PixLite</a></li>
-          <li><a href="#chipper">Chipper</a></li>
-          <li><a href="#pdftools">PDF Tools</a></li>
-        </ul>
+        <ul id="foot-apps"></ul>
       </div>
       <div>
         <h4>Privacy</h4>
-        <ul>
-          <li><a href="https://syedzubeen.github.io/flirtle-privacy/">Flirtle policy</a></li>
-          <li><a href="https://syedzubeen.github.io/pixlite-privacy/">PixLite policy</a></li>
-          <li><a href="https://syedzubeen.github.io/chipper-privacy/">Chipper policy</a></li>
-          <li><a href="https://syedzubeen.github.io/pdftools-privacy/">PDF Tools policy</a></li>
-        </ul>
+        <ul id="foot-privacy"></ul>
       </div>
       <div>
         <h4>Connect</h4>
@@ -382,5 +289,131 @@
   </footer>
 </main>
 </div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────────────────
+   THE ONLY PLACE YOU EDIT TO ADD AN APP.
+
+   Copy one block, fill it in, done — the grid, the sidebar nav, and both
+   footer columns all rebuild from this array. Order here is the order shown.
+
+   Fields:
+     id       slug used for the anchor (#id). Keep it URL-safe and unique.
+     name     display name, shown in the title bar and heading.
+     tagline  one-line pitch (the bold line).
+     desc     one or two sentences.
+     category grouping label. Flip GROUP_BY_CATEGORY on once a category has 2+.
+     meta     the small uppercase footnote under the description.
+     platform title-bar tag (defaults to "Android").
+     play     Google Play URL. Leave "" for a dead button with a "Soon" badge;
+              paste the URL on launch and the badge disappears automatically.
+     privacy  privacy-policy URL, or "" to omit the link.
+     glyph    inline SVG paths for the 0 0 40 40 line icon (stroke = ink).
+   ───────────────────────────────────────────────────────────────────────── */
+const GROUP_BY_CATEGORY = false;   // set true when categories have 2+ apps each
+
+const APPS = [
+  {
+    id: 'flirtle', name: 'Flirtle', category: 'Dating',
+    tagline: 'Better dating-app prompts, drafted for you.',
+    desc: "Paste a match's profile or pick a prompt and Flirtle drafts openers and answers in your own voice — on-device AI first, cloud only when you ask.",
+    meta: 'Dating helper · On-device + cloud AI', platform: 'Android',
+    play: '', privacy: 'https://syedzubeen.github.io/flirtle-privacy/',
+    glyph: '<path d="M6 9h28a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H17l-8 6v-6H6a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3Z"/><path d="M28 15l1.6 3.4L33 20l-3.4 1.6L28 25l-1.6-3.4L23 20l3.4-1.6Z"/>'
+  },
+  {
+    id: 'pixlite', name: 'PixLite', category: 'Photos',
+    tagline: 'Compress, resize and convert photos — fully offline.',
+    desc: 'Shrink images for sharing, batch-resize to platform presets, and convert between formats. Nothing ever leaves your phone.',
+    meta: 'Photos · 100% on-device', platform: 'Android',
+    play: '', privacy: 'https://syedzubeen.github.io/pixlite-privacy/',
+    glyph: '<rect x="4" y="7" width="32" height="26" rx="3"/><path d="M4 27l9-9 6 6 7-8 10 10"/><circle cx="14" cy="15" r="2.5"/>'
+  },
+  {
+    id: 'chipper', name: 'Chipper', category: 'Health',
+    tagline: 'A calm, private weight tracker.',
+    desc: 'Log your weight, watch the trend, and keep every reading local to your device. No accounts, no cloud, no noise — just the line going where you want.',
+    meta: 'Health · Local-only', platform: 'Android',
+    play: '', privacy: 'https://syedzubeen.github.io/chipper-privacy/',
+    glyph: '<path d="M5 33V7M5 33h30"/><path d="M9 24l7-6 6 4 11-11"/><circle cx="33" cy="11" r="2.4"/>'
+  },
+  {
+    id: 'pdftools', name: 'PDF Tools', category: 'Productivity',
+    tagline: 'A pocket PDF workshop.',
+    desc: 'Merge, split, compress, convert and reorder PDFs right on your phone — a dozen tools that run entirely on-device, no upload required.',
+    meta: 'Productivity · 100% on-device', platform: 'Android',
+    play: '', privacy: 'https://syedzubeen.github.io/pdftools-privacy/',
+    glyph: '<path d="M12 4h11l7 7v22a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M23 4v7h7"/><path d="M15 20h10M15 25h10M15 30h6"/>'
+  }
+];
+
+/* Generic fallback glyph (the app-grid mark) for any app that omits one. */
+const FALLBACK_GLYPH =
+  '<rect x="6" y="6" width="12" height="12" rx="3"/><rect x="22" y="6" width="12" height="12" rx="3"/>' +
+  '<rect x="6" y="22" width="12" height="12" rx="3"/><rect x="22" y="22" width="12" height="12" rx="3"/>';
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function playButton(a) {
+  const icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l16 10L3 22z"/></svg>';
+  return a.play
+    ? `<a class="play" href="${esc(a.play)}" target="_blank" rel="noopener"
+          aria-label="${esc(a.name)} on Google Play">${icon} Google Play</a>`
+    : `<a class="play" href="#" aria-label="${esc(a.name)} on Google Play (coming soon)"
+          onclick="return false">${icon} Google Play <span class="soon">Soon</span></a>`;
+}
+
+function card(a, i) {
+  const priv = a.privacy
+    ? `<a class="privlink" href="${esc(a.privacy)}">Privacy policy</a>` : '';
+  return `<article class="app" id="${esc(a.id)}" style="--i:${i}">
+    <div class="titlebar"><span>${esc(a.name)}</span><span class="plat">${esc(a.platform || 'Android')}</span></div>
+    <div class="body">
+      <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true">${a.glyph || FALLBACK_GLYPH}</svg>
+      <h3>${esc(a.name)}</h3>
+      <p class="tag">${esc(a.tagline)}</p>
+      <p>${esc(a.desc)}</p>
+      ${a.meta ? `<p class="meta">${esc(a.meta)}</p>` : ''}
+      <div class="actions">${playButton(a)}${priv}</div>
+    </div>
+  </article>`;
+}
+
+function render() {
+  // Grid — flat, or grouped under category labels when the flag is on.
+  const grid = document.getElementById('apps');
+  if (GROUP_BY_CATEGORY) {
+    const cats = [...new Set(APPS.map(a => a.category).filter(Boolean))];
+    let i = 0, html = '';
+    for (const c of cats) {
+      html += `<h2 class="cat-label" id="cat-${esc(c.toLowerCase())}">${esc(c)}</h2>`;
+      html += APPS.filter(a => a.category === c).map(a => card(a, i++)).join('');
+    }
+    grid.innerHTML = html;
+  } else {
+    grid.innerHTML = APPS.map((a, i) => card(a, i)).join('');
+  }
+
+  // Sidebar nav — apps when flat, categories when grouped (stays short at 16).
+  const nav = document.getElementById('nav');
+  if (GROUP_BY_CATEGORY) {
+    const cats = [...new Set(APPS.map(a => a.category).filter(Boolean))];
+    nav.innerHTML = cats.map(c =>
+      `<a href="#cat-${esc(c.toLowerCase())}">${esc(c)}</a>`).join('');
+  } else {
+    nav.innerHTML = APPS.map(a => `<a href="#${esc(a.id)}">${esc(a.name)}</a>`).join('');
+  }
+
+  // Footer columns.
+  document.getElementById('foot-apps').innerHTML =
+    APPS.map(a => `<li><a href="#${esc(a.id)}">${esc(a.name)}</a></li>`).join('');
+  document.getElementById('foot-privacy').innerHTML =
+    APPS.filter(a => a.privacy)
+        .map(a => `<li><a href="${esc(a.privacy)}">${esc(a.name)} policy</a></li>`).join('');
+}
+
+render();
+</script>
 </body>
 </html>
