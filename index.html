@@ -12,6 +12,15 @@
        in a 2x2 grid: the portfolio is a grid of apps. Inverts on dark chrome. -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cstyle%3Erect{fill:%230a0a0a}@media(prefers-color-scheme:dark){rect{fill:%23f5f5f5}}%3C/style%3E%3Crect x='4' y='4' width='11' height='11' rx='3'/%3E%3Crect x='17' y='4' width='11' height='11' rx='3'/%3E%3Crect x='4' y='17' width='11' height='11' rx='3'/%3E%3Crect x='17' y='17' width='11' height='11' rx='3'/%3E%3C/svg%3E">
   <title>Zoob.in: small, offline-first apps</title>
+  <script>
+    /* Applied before first paint so a stored choice never flashes the OS default first. */
+    (function () {
+      var stored = localStorage.getItem('theme');
+      if (stored === 'light' || stored === 'dark') {
+        document.documentElement.setAttribute('data-theme', stored);
+      }
+    })();
+  </script>
   <style>
     /* Blueprint tokens, carried over from the Signal build: white canvas, black
        ink, hairlines. Colour is reserved for meaning; this page needs almost
@@ -23,6 +32,11 @@
       :root { --bg:#0a0a0a; --panel:#161616; --ink:#f5f5f5; --muted:#a3a3a3;
               --line:#2a2a2a; --line-strong:#f5f5f5; --medium:#e0b45e; }
     }
+    /* Manual toggle overrides: win regardless of OS preference once a choice is stored. */
+    :root[data-theme="light"] { --bg:#ffffff; --panel:#f4f4f4; --ink:#0a0a0a; --muted:#6b6b6b;
+                                 --line:#e3e3e3; --line-strong:#0a0a0a; --medium:#7d5800; }
+    :root[data-theme="dark"] { --bg:#0a0a0a; --panel:#161616; --ink:#f5f5f5; --muted:#a3a3a3;
+                                --line:#2a2a2a; --line-strong:#f5f5f5; --medium:#e0b45e; }
     * { box-sizing: border-box; }
     body { margin:0; background:var(--bg); color:var(--ink);
            font:16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -191,6 +205,22 @@
     a:focus-visible, .play:focus-visible {
       outline:2px solid var(--ink); outline-offset:2px; border-radius:3px; }
 
+    .theme-toggle { position:fixed; top:1.25rem; right:1.25rem; z-index:10;
+                     width:2.35rem; height:2.35rem; border:1px solid var(--line-strong);
+                     border-radius:999px; background:var(--bg); color:var(--ink);
+                     display:flex; align-items:center; justify-content:center;
+                     cursor:pointer; padding:0; }
+    .theme-toggle:hover { background:var(--panel); }
+    .theme-toggle svg { width:1.1rem; height:1.1rem; fill:none; stroke:currentColor;
+                         stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+    .theme-toggle .icon-sun { display:none; }
+    :root[data-theme="dark"] .theme-toggle .icon-moon { display:none; }
+    :root[data-theme="dark"] .theme-toggle .icon-sun { display:block; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-toggle .icon-moon { display:none; }
+      :root:not([data-theme="light"]) .theme-toggle .icon-sun { display:block; }
+    }
+
     /* Entrance: one gentle fade-up on load, staggered down the page. */
     @media (prefers-reduced-motion: no-preference) {
       main > * { animation:rise .5s ease-out both; }
@@ -206,6 +236,10 @@
   </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark and light mode">
+  <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+</button>
 <div class="layout">
   <aside class="side">
     <h1 class="brand"><svg class="mark" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -469,6 +503,23 @@ function render() {
 }
 
 render();
+
+/* Dark/light toggle: cycles the explicit override, falling back to OS preference
+   only when nothing has been chosen yet. */
+(function () {
+  var btn = document.getElementById('themeToggle');
+  var root = document.documentElement;
+  var mql = window.matchMedia('(prefers-color-scheme: dark)');
+  function current() {
+    var stored = localStorage.getItem('theme');
+    return stored || (mql.matches ? 'dark' : 'light');
+  }
+  btn.addEventListener('click', function () {
+    var next = current() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+})();
 </script>
 </body>
 </html>
