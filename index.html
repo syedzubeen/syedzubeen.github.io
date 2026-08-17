@@ -94,6 +94,7 @@
        the grid flow from 1 to 3 columns as the portfolio grows, no media query. */
     .apps { display:grid; grid-template-columns:repeat(auto-fill, minmax(16rem,1fr));
             gap:1.1rem; }
+    @media (min-width:64rem) { .apps { grid-template-columns:repeat(4,1fr); } }
     /* Category grouping: a section label per category, shown only when
        GROUP_BY_CATEGORY is on. Kept minimal so it scales to a directory. */
     .cat-label { grid-column:1/-1; font-size:.7rem; font-weight:700;
