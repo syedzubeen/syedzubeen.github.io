@@ -326,7 +326,7 @@
     </div>
     <div class="foot-fine">
       <p>All apps are built for Android and designed offline-first. See each app's privacy policy for details on data collection.</p>
-      <p>© 2026 Zoob.in · Zubeen. All rights reserved.</p>
+      <p>© <span id="year">2026</span> Zoob.in · Zubeen. All rights reserved.</p>
     </div>
   </footer>
 </main>
@@ -537,6 +537,8 @@ render();
     localStorage.setItem('theme', next);
   });
 })();
+
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
