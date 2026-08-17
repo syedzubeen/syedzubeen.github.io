@@ -45,7 +45,7 @@
     /* Layout: slim sidebar on desktop, plain top row on narrow screens. The
        lockup belongs in the top-left corner, X-logo style, not centered. */
     .layout { display:grid; grid-template-columns:13rem minmax(0,1fr); gap:2rem;
-              max-width:72rem; margin:0; padding:1.25rem 1.5rem 5rem; }
+              max-width:90rem; margin:0; padding:1.25rem 1.5rem 5rem; }
     .side { font-size:.85rem; }
 
     /* Identity lockup: the app-grid mark, the Zoob.in wordmark, tagline, nav. */
@@ -85,7 +85,7 @@
       .side nav { display:flex; flex-wrap:wrap; gap:.4rem 1.1rem; }
     }
 
-    main { max-width:60rem; }
+    main { max-width:76rem; }
     .sub { color:var(--muted); margin:0 0 2.75rem; max-width:44rem; font-size:1rem; }
     a { color:var(--ink); }
 
@@ -94,7 +94,6 @@
        the grid flow from 1 to 3 columns as the portfolio grows, no media query. */
     .apps { display:grid; grid-template-columns:repeat(auto-fill, minmax(16rem,1fr));
             gap:1.1rem; }
-    @media (min-width:64rem) { .apps { grid-template-columns:repeat(4,1fr); } }
     /* Category grouping: a section label per category, shown only when
        GROUP_BY_CATEGORY is on. Kept minimal so it scales to a directory. */
     .cat-label { grid-column:1/-1; font-size:.7rem; font-weight:700;
